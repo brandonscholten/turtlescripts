@@ -170,25 +170,21 @@ while true do
         end
     end
 
-    --2. Mine tree
-    if not at_y_edge() then 
-        if turtle.detect()  then
+    --2. Mine a tree, or step forward across an empty tile
+    if not at_y_edge() then
+        if turtle.detect() then
             mine_tree()
-        end    
-    
-        --replant sapling
-        replant_sapling()
-
-    else
-        --3. Move forward
-        if at_y_edge() then
-            if at_x_edge() then
-                return_to_origin()
-            else
-                do_turn()
-            end
+            replant_sapling()
         else
             move_turtle_along_y_axis()
+        end
+
+    --3. At the end of the row: turn into the next column, or go home
+    else
+        if at_x_edge() then
+            return_to_origin()
+        else
+            do_turn()
         end
     end
 end
