@@ -1,6 +1,7 @@
 MOVE_SLEEP_TIME = 0
 SEED_IDS = {"minecraft:wheat_seeds","minecraft:melon_seeds","minecraft:pumpkin_seeds","minecraft:beetroot_seeds"}
 PLANT_IDS = {"minecraft:wheat", "minecraft:melon", "minecraft:pumpkin", "minecraft:beetroots"}
+FARMLAND_ID = "minecraft:farmland"
 --     sleep between moves TODO will have to write a helper for this
 --     if there's nothing two blocks down, turn around and come back down next column
 --     if there's nothing underneath two blocks down for two blocks, turn to the left
@@ -43,10 +44,6 @@ function plant_seed()
     return turtle.placeDown()
 end
 
--- turn around to the left
-function turn_around_left()
-end
-
 -- main loop, keep moving until you're just sooooo full
 while true do
     -- move forward one
@@ -77,6 +74,13 @@ while true do
         turtle.down()
         local has_block_below, block_below = turtle.inspectDown()
         -- if the block below is not a tilled dirt block, turn around
+        if block_below.name == FARMLAND_ID then
+            plant_seed()
+            turtle.up()
+        else
+            turtle.left()
+            turtle.up()
+        end
     end
     ::continue::
 end
