@@ -1,10 +1,28 @@
 
-print("Running Mob Farmer")
+print("Starting mob farmer")
 while true do
-    attacked, reason_not_attacked = turtle.attack()
-    if not attacked then
-        print("Didn't attack: " .. reason_not_attacked)
-    end
+    -- Attack Forward
+    turtle.attack()
     turtle.suck()
-    turtle.dropDown()
+    turtle.turnRight()
+
+    -- Attack Right
+    turtle.attack()
+    turtle.suck()
+    
+    -- Attack Up
+    turtle.attackUp()
+    turtle.suckUp()
+
+    -- drop
+    turtle.turnRight()
+    
+    for slot = 1, 16 do
+        turtle.select(slot)
+        turtle.drop()
+    end
+    turtle.select(1)
+    turtle.turnLeft()
+    turtle.turnLeft()
+
 end
